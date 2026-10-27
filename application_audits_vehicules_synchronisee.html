@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#15364a">
+<title>Flotte — Audits véhicules</title>
+<style>
+:root{--navy:#15364a;--teal:#087f73;--mint:#e3f6ef;--bg:#f4f7f8;--card:#fff;--ink:#1d2d36;--muted:#6b7c86;--line:#e2e9ec;--amber:#b86a08;--amberbg:#fff2d9;--red:#b42318;--redbg:#ffebe8;--green:#13764b;--greenbg:#e1f5e9;--shadow:0 5px 22px #183a4a0d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:780px;margin:auto;min-height:100vh;padding-bottom:90px}.top{background:var(--navy);color:white;padding:22px 18px 25px;border-radius:0 0 26px 26px}.topline{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;font-weight:800}.top h1{font-size:27px;line-height:1.15;margin:8px 0 5px}.subtitle{color:#c8d9e1;font-size:14px}.pill{border:1px solid #ffffff38;border-radius:999px;padding:7px 10px;font-size:12px;white-space:nowrap}.content{padding:16px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:-4px}.metric{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 11px;box-shadow:var(--shadow)}.metric .num{font-size:25px;font-weight:850;letter-spacing:-.04em}.metric .lab{font-size:11px;color:var(--muted);margin-top:4px}.metric.green .num{color:var(--green)}.metric.orange .num{color:var(--amber)}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:24px 0 12px}.sectionhead h2{font-size:18px;margin:0}.smallmuted{font-size:12px;color:var(--muted)}.searchrow{display:flex;gap:8px;margin-bottom:10px}.search{flex:1;min-width:0;border:1px solid var(--line);border-radius:13px;padding:13px 14px;background:white;outline:none}.search:focus,input:focus,select:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px #087f7317}.btn{border:0;border-radius:13px;padding:12px 14px;font-weight:750}.btn-primary{background:var(--teal);color:white}.btn-secondary{background:#e7eef1;color:var(--navy)}.btn-ghost{background:transparent;color:var(--teal);padding:8px}.btn-danger{background:var(--redbg);color:var(--red)}.filters{display:flex;gap:7px;overflow:auto;padding:2px 0 9px}.filter{border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:white;color:var(--muted);font-size:12px;white-space:nowrap}.filter.active{background:var(--navy);border-color:var(--navy);color:white}.vehicle-list{display:grid;gap:10px}.vehicle{background:white;border:1px solid var(--line);border-radius:17px;padding:14px;box-shadow:var(--shadow)}.vehicle-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.plate{font-size:17px;font-weight:850;letter-spacing:.04em}.vname{font-size:12px;color:var(--muted);margin-top:4px}.status{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:6px 9px;font-size:11px;font-weight:800;white-space:nowrap}.status.ok{background:var(--greenbg);color:var(--green)}.status.warn{background:var(--amberbg);color:var(--amber)}.status.bad{background:var(--redbg);color:var(--red)}.status.neutral{background:#edf1f3;color:#586872}.vehicle-meta{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 12px;font-size:12px;color:var(--muted)}.vehicle-meta b{color:var(--ink)}.vehicle-actions{display:flex;gap:8px}.vehicle-actions button{flex:1;font-size:13px;padding:10px 8px}.empty{text-align:center;padding:30px 15px;color:var(--muted);background:white;border:1px dashed #cbd7dd;border-radius:16px}.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:5;background:#ffffffed;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px max(10px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom))}.navinner{width:100%;max-width:780px;display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.navbtn{background:transparent;border:0;color:var(--muted);border-radius:12px;padding:7px 4px;font-size:11px;font-weight:700}.navbtn .ico{display:block;font-size:20px;margin-bottom:3px}.navbtn.active{background:var(--mint);color:var(--teal)}.page{display:none}.page.active{display:block}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:800;color:#52636d}.field input,.field select,.field textarea{width:100%;border:1px solid #d7e1e5;border-radius:12px;background:white;padding:12px;color:var(--ink);min-height:46px;outline:none}.field textarea{min-height:80px;resize:vertical}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}.card h3{margin:0 0 12px;font-size:15px}.choice-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.choice{position:relative}.choice input{position:absolute;opacity:0;pointer-events:none}.choice span{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:9px 5px;border:1px solid var(--line);border-radius:12px;font-size:12px;font-weight:750;background:white}.choice input:checked+span{border-color:var(--teal);background:var(--mint);color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal)}.equipment{display:grid;grid-template-columns:1fr 1fr;gap:9px}.equip{border:1px solid var(--line);border-radius:13px;padding:11px;display:flex;flex-direction:column;gap:8px}.equipname{font-size:13px;font-weight:750}.equip select{width:100%;border:1px solid #d7e1e5;border-radius:9px;padding:9px;background:white}.formactions{display:flex;gap:9px;margin-top:16px}.formactions button{flex:1}.page-title{font-size:23px;margin:8px 0 4px}.page-intro{font-size:13px;color:var(--muted);margin:0 0 16px}.history-item{border-left:3px solid #b6dcd2;padding:0 0 18px 14px;margin-left:5px;position:relative}.history-item:before{content:"";position:absolute;left:-7px;top:3px;width:11px;height:11px;background:var(--teal);border-radius:50%}.history-item:last-child{padding-bottom:0}.history-date{font-size:12px;color:var(--muted);margin-bottom:5px}.history-summary{font-size:14px;font-weight:800;margin-bottom:5px}.history-detail{font-size:12px;color:var(--muted);line-height:1.6}.history-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:#173b36;color:white;padding:12px 17px;border-radius:12px;box-shadow:var(--shadow);z-index:20;font-size:13px;display:none;max-width:90vw}.toast.show{display:block}.notice{background:#eaf4f8;color:#345462;padding:12px 13px;border-radius:13px;font-size:12px;line-height:1.5;margin:12px 0}.backuprow{display:flex;gap:8px;flex-wrap:wrap}.backuprow button{flex:1;min-width:130px}.section-spacer{height:8px}.hidden{display:none!important}.revline{height:7px;background:#edf1f3;border-radius:99px;overflow:hidden;margin-top:6px}.revline span{display:block;height:100%;border-radius:99px;background:var(--teal)}.subhead{font-size:13px;font-weight:800;margin:16px 0 9px}
+@media(min-width:620px){.content{padding:20px}.vehicle-list{grid-template-columns:1fr 1fr}.top{padding:26px 24px 30px}.metrics{gap:12px}.metric{padding:16px}.metric .num{font-size:29px}}
+@media(max-width:380px){.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.equipment{grid-template-columns:1fr 1fr}.top h1{font-size:24px}.metric .num{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="topline"><div class="brand">Garage · carnet de flotte</div><div class="pill">● Usage personnel</div></div>
+ <h1>Mes audits véhicules</h1>
+ <div class="subtitle">54 véhicules · Simple, rapide, au même endroit.</div>
+</header>
+<main class="content">
+ <section id="homePage" class="page active">
+  <div class="metrics">
+   <div class="metric"><div class="num" id="countAudited">0/54</div><div class="lab">Audits réalisés</div></div>
+   <div class="metric green"><div class="num" id="countOk">0</div><div class="lab">Conformes</div></div>
+   <div class="metric orange"><div class="num" id="countAlerts">0</div><div class="lab">À surveiller</div></div>
+  </div>
+  <div class="sectionhead"><h2>Ta flotte</h2><span class="smallmuted" id="countShown">54 véhicules</span></div>
+  <div class="searchrow"><input id="searchInput" class="search" type="search" placeholder="🔎 Rechercher une immatriculation" autocomplete="off"><button class="btn btn-primary" id="addVehicleBtn" aria-label="Ajouter un véhicule">＋</button></div>
+  <div class="filters" id="filters">
+   <button class="filter active" data-filter="all">Tous</button><button class="filter" data-filter="todo">À auditer</button><button class="filter" data-filter="alert">Alertes</button><button class="filter" data-filter="ok">Conformes</button>
+  </div>
+  <div class="vehicle-list" id="vehicleList"></div>
+ </section>
+ <section id="auditPage" class="page">
+  <button class="btn btn-ghost" id="backHome">← Retour à la flotte</button>
+  <h2 class="page-title" id="auditTitle">Nouvel audit</h2><p class="page-intro">Coche les contrôles pendant que tu es à côté du véhicule.</p>
+  <form id="auditForm">
+   <input type="hidden" id="auditVehicleId">
+   <div class="card">
+    <h3>📍 Relevé du jour</h3>
+    <div class="formgrid">
+     <div class="field"><label for="auditDate">Date de l'audit</label><input id="auditDate" type="date" required></div>
+     <div class="field"><label for="auditKm">Kilométrage compteur</label><input id="auditKm" type="number" min="0" step="1" placeholder="Ex. 82450" required inputmode="numeric"></div>
+     <div class="field full"><label for="nextServiceKm">Kilométrage prévu de la prochaine révision</label><input id="nextServiceKm" type="number" min="0" step="1" placeholder="Ex. 90000" inputmode="numeric"><div class="smallmuted" id="serviceHint">Le reste à parcourir sera calculé automatiquement.</div></div>
+    </div>
+   </div>
+   <div class="card">
+    <h3>🛞 État des pneus</h3>
+    <div class="choice-row" data-choice="tires">
+     <label class="choice"><input type="radio" name="tires" value="Bon" required><span>🟢 Bon</span></label>
+     <label class="choice"><input type="radio" name="tires" value="À surveiller"><span>🟠 À surveiller</span></label>
+     <label class="choice"><input type="radio" name="tires" value="À remplacer"><span>🔴 À remplacer</span></label>
+    </div>
+   </div>
+   <div class="card">
+    <h3>🧰 Équipements à bord</h3><div class="smallmuted" style="margin:-5px 0 12px">Choisis une réponse pour chaque élément.</div>
+    <div class="equipment" id="equipmentFields"></div>
+   </div>
+   <div class="card">
+    <h3>📝 Remarques / actions à prévoir</h3>
+    <div class="field"><label for="auditNotes">Facultatif</label><textarea id="auditNotes" placeholder="Ex. pneu avant droit usé, chargeur à remplacer…"></textarea></div>
+   </div>
+   <div class="formactions"><button type="button" class="btn btn-secondary" id="cancelAudit">Annuler</button><button type="submit" class="btn btn-primary">✓ Enregistrer l'audit</button></div>
+  </form>
+ </section>
+ <section id="historyPage" class="page">
+  <button class="btn btn-ghost" id="historyBack">← Retour à la flotte</button>
+  <h2 class="page-title" id="historyTitle">Historique</h2><p class="page-intro">Tous les audits enregistrés pour cette immatriculation.</p>
+  <div id="historyContent"></div>
+  <div class="history-actions"><button class="btn btn-primary" id="historyNewAudit">＋ Nouvel audit</button><button class="btn btn-secondary" id="renameVehicle">Modifier l'immatriculation</button></div>
+ </section>
+ <section id="settingsPage" class="page">
+  <h2 class="page-title">Réglages & synchronisation</h2>
+  <p class="page-intro">Configure Supabase une seule fois, puis connecte-toi avec le même compte sur ton téléphone et ton PC.</p>
+  <div class="card">
+   <h3>☁️ Base de données partagée — Supabase</h3>
+   <div class="notice">Les champs ci-dessous enregistrent l'URL et la clé publique dans ce navigateur. La clé Publishable est prévue pour l'application web ; ne colle jamais une clé « service_role » ou une clé secrète ici.</div>
+   <div class="field" style="margin-bottom:12px"><label for="supabaseUrl">Project URL</label><input id="supabaseUrl" type="url" placeholder="https://xxxxxxxx.supabase.co" autocomplete="url"></div>
+   <div class="field" style="margin-bottom:12px"><label for="supabaseKey">Publishable key</label><input id="supabaseKey" type="password" placeholder="sb_publishable_…" autocomplete="off"></div>
+   <div class="backuprow"><button class="btn btn-primary" id="saveSupabaseConfig">Enregistrer la configuration</button><button class="btn btn-secondary" id="testSupabaseConfig">Tester la connexion</button></div>
+   <div id="cloudStatus" class="notice" role="status" style="margin-top:12px">Non configuré : les données sont uniquement locales pour le moment.</div>
+  </div>
+  <div class="card">
+   <h3>🔐 Connexion personnelle</h3>
+   <p class="smallmuted">Utilise le même compte sur tes deux appareils. L'accès aux données est limité par les règles de sécurité de Supabase.</p>
+   <div class="field" style="margin-bottom:12px"><label for="authEmail">Adresse e-mail</label><input id="authEmail" type="email" placeholder="toi@exemple.fr" autocomplete="email"></div>
+   <div class="field" style="margin-bottom:12px"><label for="authPassword">Mot de passe</label><input id="authPassword" type="password" placeholder="Au moins 8 caractères recommandés" autocomplete="current-password"></div>
+   <div class="backuprow"><button class="btn btn-primary" id="signInBtn">Se connecter</button><button class="btn btn-secondary" id="signUpBtn">Créer mon compte</button><button class="btn btn-secondary" id="signOutBtn">Déconnexion</button></div>
+   <div class="backuprow" style="margin-top:10px"><button class="btn btn-primary" id="syncCloudBtn">☁️ Charger / synchroniser</button><button class="btn btn-secondary" id="migrateCloudBtn">Importer les données locales vers le cloud</button></div>
+   <p class="smallmuted" style="margin-top:10px">La première synchronisation peut importer les 54 véhicules et leur historique local si la base en ligne est vide. Si des véhicules existent déjà en ligne, l'application les charge sans écraser la base.</p>
+  </div>
+  <div class="card"><h3>📦 Sauvegarde de secours</h3><p class="smallmuted">Exporte régulièrement un fichier JSON contenant les véhicules et l'historique. Cette copie est utile même lorsque la synchronisation cloud est active.</p><div class="backuprow"><button class="btn btn-primary" id="exportBtn">⬇ Exporter la sauvegarde</button><button class="btn btn-secondary" id="importBtn">⬆ Importer une sauvegarde locale</button><input type="file" id="importFile" accept=".json,application/json" class="hidden"></div></div>
+  <div class="card"><h3>🚘 Gérer les véhicules</h3><p class="smallmuted">Tu peux remplacer les noms temporaires par les immatriculations réelles. Les audits restent associés au véhicule.</p><button class="btn btn-secondary" id="editVehiclesBtn">Voir / modifier la flotte</button></div>
+  <div class="notice">ℹ️ Si la synchronisation cloud est active, les changements enregistrés dans l'application sont envoyés à Supabase. La base doit avoir les tables <code>vehicles</code> et <code>audits</code> ainsi que les règles RLS créées avec le script SQL fourni précédemment.</div>
+  <div class="card"><h3>🧹 Réinitialisation locale</h3><p class="smallmuted">Efface uniquement les données enregistrées dans ce navigateur, pas les données dans Supabase. Exporte d'abord une sauvegarde si nécessaire.</p><button class="btn btn-danger" id="resetBtn">Réinitialiser les données locales</button></div>
+ </section>
+</main>
+</div>
+<nav class="bottomnav"><div class="navinner">
+ <button class="navbtn active" data-page="homePage"><span class="ico">🚗</span>Ma flotte</button>
+ <button class="navbtn" data-page="historyPage" id="navHistory"><span class="ico">🕘</span>Historique</button>
+ <button class="navbtn" data-page="settingsPage"><span class="ico">⚙️</span>Réglages</button>
+</div></nav>
+<div class="toast" id="toast" role="status"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+"use strict";
+const KEY="flotte_audits_v1", CONFIG_KEY="flotte_supabase_config_v1";
+const equipment=[
+ ["spare","Roue de secours"],["jack","Cric"],["foam","Bombe anti-crevaison"],
+ ["charger","Chargeur téléphone"],["cloth","Microfibre"],["scraper","Grattoir"]
+];
+let data, activeFilter="all", currentHistoryId=null, editingVehicleId=null;
+let supabaseClient=null, cloudSession=null, cloudBusy=false;
+const $=id=>document.getElementById(id);
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36);
+function seed(){return {version:1,vehicles:Array.from({length:54},(_,i)=>({id:"v"+(i+1),plate:"",name:"Véhicule "+String(i+1).padStart(2,"0"),audits:[]}))}}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw){const x=JSON.parse(raw);if(x&&Array.isArray(x.vehicles))return x}}catch(e){}return seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){toast("Enregistrement impossible : exporte tes données ou libère de l'espace.");return false}}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function fmtNum(n){return Number(n).toLocaleString("fr-FR")}
+function fmtDate(d){if(!d)return "Date non renseignée";const [y,m,day]=d.split("-");return `${day}/${m}/${y}`}
+function latest(v){return v.audits&&v.audits.length?v.audits.slice().sort((a,b)=>(b.date||"").localeCompare(a.date||"")||(b.createdAt||0)-(a.createdAt||0))[0]:null}
+function remaining(a){return a&&a.km!==""&&a.nextServiceKm!==""&&a.nextServiceKm!=null?Number(a.nextServiceKm)-Number(a.km):null}
+function status(v){const a=latest(v);if(!a)return {key:"todo",label:"À auditer"};const rem=remaining(a);const absent=equipment.some(([k])=>a.equipment&&a.equipment[k]==="Absent");if(a.tires==="À remplacer"||absent||(rem!==null&&rem<=0))return {key:"alert",label:"Anomalie"};if(a.tires==="À surveiller"||(rem!==null&&rem<=1500))return {key:"warn",label:"À surveiller"};return {key:"ok",label:"Conforme"}}
+function vehicleName(v){return (v.plate||"").trim()||v.name||"Véhicule"}
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove("show"),3200)}
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.page===id));window.scrollTo({top:0,behavior:"smooth"});if(id==="homePage")renderFleet()}
+function renderStats(){const audited=data.vehicles.filter(v=>latest(v)).length;const ok=data.vehicles.filter(v=>status(v).key==="ok").length;const alerts=data.vehicles.filter(v=>["alert","warn"].includes(status(v).key)).length;$("countAudited").textContent=`${audited}/${data.vehicles.length}`;$("countOk").textContent=ok;$("countAlerts").textContent=alerts}
+function renderFleet(){
+ renderStats();const query=$("searchInput").value.trim().toLocaleLowerCase("fr-FR");
+ const list=data.vehicles.filter(v=>{const s=status(v);const text=(vehicleName(v)+" "+v.name).toLocaleLowerCase("fr-FR");if(query&&!text.includes(query))return false;if(activeFilter==="todo"&&s.key!=="todo")return false;if(activeFilter==="alert"&&!["alert","warn"].includes(s.key))return false;if(activeFilter==="ok"&&s.key!=="ok")return false;return true});
+ $("countShown").textContent=`${list.length} véhicule${list.length>1?"s":""}`;
+ if(!list.length){$("vehicleList").innerHTML='<div class="empty">Aucun véhicule trouvé.<br><span class="smallmuted">Essaie une autre recherche ou un autre filtre.</span></div>';return}
+ $("vehicleList").innerHTML=list.map(v=>{const a=latest(v),s=status(v),rem=remaining(a);let meta=a?`<span>📅 <b>${fmtDate(a.date)}</b></span><span>🛣️ <b>${a.km!==""?fmtNum(a.km)+" km":"Km —"}</b></span>`:'<span>Pas encore audité</span>';if(a&&rem!==null)meta+=`<span>🔧 <b>${rem<=0?"Révision échue":fmtNum(rem)+" km restants"}</b></span>`;return `<article class="vehicle"><div class="vehicle-top"><div><div class="plate">${esc(vehicleName(v))}</div><div class="vname">${esc(v.name||"Véhicule")} ${v.plate?"· Immatriculation":""}</div></div><span class="status ${s.key==="ok"?"ok":s.key==="alert"?"bad":s.key==="warn"?"warn":"neutral"}">${s.key==="ok"?"✓":s.key==="alert"?"!":s.key==="warn"?"◷":"○"} ${s.label}</span></div><div class="vehicle-meta">${meta}</div><div class="vehicle-actions"><button class="btn btn-primary" data-action="audit" data-id="${esc(v.id)}">${a?"＋ Nouvel audit":"Commencer l'audit"}</button><button class="btn btn-secondary" data-action="history" data-id="${esc(v.id)}">Historique (${v.audits.length})</button></div></article>`}).join("");
+}
+function equipmentMarkup(values={}){return equipment.map(([key,label])=>`<div class="equip"><div class="equipname">${esc(label)}</div><select name="equip_${key}" aria-label="${esc(label)}"><option value="">À contrôler…</option><option value="Présent" ${values[key]==="Présent"?"selected":""}>✓ Présent</option><option value="Absent" ${values[key]==="Absent"?"selected":""}>✕ Absent</option><option value="Non applicable" ${values[key]==="Non applicable"?"selected":""}>— Non applicable</option></select></div>`).join("")}
+function openAudit(id){
+ const v=data.vehicles.find(x=>x.id===id);if(!v)return;editingVehicleId=id;
+ const a=latest(v);$("auditVehicleId").value=id;$("auditTitle").textContent=(a?"Nouvel audit · ":"Premier audit · ")+vehicleName(v);
+ $("auditDate").value=today();$("auditKm").value="";$("nextServiceKm").value=a&&a.nextServiceKm!==""?a.nextServiceKm:"";$("auditNotes").value="";
+ document.querySelectorAll('input[name="tires"]').forEach(x=>x.checked=false);
+ $("equipmentFields").innerHTML=equipmentMarkup({});
+ $("serviceHint").textContent="Indique le kilométrage prévu sur le carnet ou le suivi d'entretien.";
+ $("auditKm").oninput=updateServiceHint;$("nextServiceKm").oninput=updateServiceHint;
+ showPage("auditPage");
+}
+function updateServiceHint(){const km=$("auditKm").value,next=$("nextServiceKm").value;if(km!==""&&next!==""){const r=Number(next)-Number(km);$("serviceHint").textContent=r<=0?`⚠ Révision dépassée de ${fmtNum(Math.abs(r))} km.`:`Il reste ${fmtNum(r)} km avant la révision.`}else $("serviceHint").textContent="Le reste à parcourir sera calculé automatiquement."}
+function openHistory(id){
+ const v=data.vehicles.find(x=>x.id===id);if(!v)return;currentHistoryId=id;$("historyTitle").textContent="Historique · "+vehicleName(v);
+ const audits=v.audits.slice().sort((a,b)=>(b.date||"").localeCompare(a.date||"")||(b.createdAt||0)-(a.createdAt||0));
+ if(!audits.length){$("historyContent").innerHTML='<div class="empty">🕘<br><b>Aucun audit pour le moment</b><br><span class="smallmuted">Ton premier audit apparaîtra ici après validation.</span></div>'}
+ else $("historyContent").innerHTML=`<div class="card"><div class="smallmuted">Nombre d'audits conservés</div><div style="font-size:28px;font-weight:850;margin-top:4px">${audits.length}</div></div>`+audits.map(a=>{const rem=remaining(a),s=statusForAudit(a);const eq=equipment.map(([k,n])=>`${n}: ${(a.equipment&&a.equipment[k])||"Non renseigné"}`).join(" · ");return `<div class="history-item"><div class="history-date">${fmtDate(a.date)}${a.createdAt?` · enregistré ${new Date(a.createdAt).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}`:""}</div><div class="history-summary">${a.km!==""?fmtNum(a.km)+" km compteur":"Kilométrage non renseigné"} <span class="status ${s.key==="ok"?"ok":s.key==="alert"?"bad":s.key==="warn"?"warn":"neutral"}">${s.label}</span></div><div class="history-detail">Pneus : <b>${esc(a.tires||"Non renseigné")}</b><br>Prochaine révision : ${a.nextServiceKm!==""&&a.nextServiceKm!=null?fmtNum(a.nextServiceKm)+" km":"Non renseignée"}${rem!==null?` (${rem<=0?"dépassée de "+fmtNum(Math.abs(rem))+" km":"reste "+fmtNum(rem)+" km"})`:""}<br>${esc(eq)}${a.notes?`<br>📝 ${esc(a.notes)}`:""}</div></div>`}).join("");
+ $("historyNewAudit").onclick=()=>openAudit(currentHistoryId);$("renameVehicle").onclick=()=>renameVehicle(currentHistoryId);showPage("historyPage");
+}
+function statusForAudit(a){const rem=remaining(a);if(a.tires==="À remplacer"||equipment.some(([k])=>a.equipment&&a.equipment[k]==="Absent")||(rem!==null&&rem<=0))return {key:"alert",label:"Anomalie"};if(a.tires==="À surveiller"||(rem!==null&&rem<=1500))return {key:"warn",label:"À surveiller"};return {key:"ok",label:"Conforme"}}
+function cloudConfigured(){return !!(supabaseClient&&cloudSession)}
+function setCloudStatus(message,isError=false){const el=$("cloudStatus");if(el){el.textContent=message;el.style.background=isError?"#ffebe8":"#eaf4f8";el.style.color=isError?"#8f1d16":"#345462"}}
+function getConfig(){return {url:$("supabaseUrl").value.trim().replace(/\/+$/,""),key:$("supabaseKey").value.trim()}}
+function saveConfigToStorage(){const c=getConfig();if(!c.url||!c.key)throw new Error("Renseigne l'URL du projet et la clé Publishable.");if(!/^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(c.url)&&!/^https:\/\/.+/.test(c.url))throw new Error("L'URL doit commencer par https://.");localStorage.setItem(CONFIG_KEY,JSON.stringify(c));return c}
+function initSupabase(){if(!window.supabase||!window.supabase.createClient)throw new Error("La bibliothèque Supabase n'a pas pu être chargée. Vérifie la connexion Internet.");const c=getConfig();if(!c.url||!c.key)throw new Error("Renseigne d'abord l'URL et la clé Publishable.");supabaseClient=window.supabase.createClient(c.url,c.key);return supabaseClient}
+function dbRegistration(v){return (v.plate||"").trim().toLocaleUpperCase("fr-FR")||("TEMP-"+String(v.id).replace(/[^a-zA-Z0-9-]/g,"").slice(0,35))}
+function localRegistration(reg){return reg&&reg.startsWith("TEMP-")?"":(reg||"")}
+function tireToDb(t){return t==="Bon"?"bon":t==="À surveiller"?"a surveiller":"a remplacer"}
+function tireFromDb(t){return t==="bon"?"Bon":t==="a surveiller"?"À surveiller":t==="a remplacer"?"À remplacer":t||""}
+function remoteVehicleToLocal(row){return {id:row.id,plate:localRegistration(row.registration),name:row.make||"Véhicule",audits:[]}}
+function remoteAuditToLocal(row){return {id:row.id,date:(row.audited_at||"").slice(0,10),km:row.odometer_km??"",nextServiceKm:row.service_due_km??"",tires:tireFromDb(row.tire_state),equipment:row.equipment||{},notes:row.notes||"",createdAt:row.audited_at?new Date(row.audited_at).getTime():Date.now()}}
+async function loadCloudData(){
+ if(!cloudConfigured())throw new Error("Connecte-toi à ton compte Supabase avant de synchroniser.");
+ const vr=await supabaseClient.from("vehicles").select("*").order("created_at",{ascending:true});
+ if(vr.error)throw vr.error;
+ const ar=await supabaseClient.from("audits").select("*").order("audited_at",{ascending:false});
+ if(ar.error)throw ar.error;
+ const vehicles=vr.data.map(remoteVehicleToLocal);
+ const byId=new Map(vehicles.map(v=>[v.id,v]));
+ for(const row of ar.data){const v=byId.get(row.vehicle_id);if(v)v.audits.push(remoteAuditToLocal(row))}
+ vehicles.forEach(v=>v.audits.sort((a,b)=>(b.date||"").localeCompare(a.date||"")||(b.createdAt||0)-(a.createdAt||0)));
+ data={version:2,vehicles};save();renderFleet();return vehicles.length;
+}
+async function insertVehicleCloud(v){
+ const payload={registration:dbRegistration(v),make:v.name||"Véhicule",model:null};
+ const {data:row,error}=await supabaseClient.from("vehicles").insert(payload).select("*").single();
+ if(error)throw error;
+ return row;
+}
+async function insertAuditCloud(vehicleId,a){
+ const payload={vehicle_id:vehicleId,odometer_km:a.km===""?null:Number(a.km),service_due_km:a.nextServiceKm===""?null:Number(a.nextServiceKm),tire_state:tireToDb(a.tires),equipment:a.equipment||{},notes:a.notes||null,audited_at:(a.date||today())+"T12:00:00.000Z"};
+ const {error}=await supabaseClient.from("audits").insert(payload);
+ if(error)throw error;
+}
+async function migrateLocalToCloud(){
+ if(!cloudConfigured())throw new Error("Connecte-toi à Supabase avant l'import.");
+ const check=await supabaseClient.from("vehicles").select("id").limit(1);
+ if(check.error)throw check.error;
+ if(check.data.length)throw new Error("La base en ligne contient déjà des véhicules. Pour éviter tout doublon, l'import initial est réservé à une base vide.");
+ if(!confirm(`Importer ${data.vehicles.length} véhicules et ${data.vehicles.reduce((n,v)=>n+v.audits.length,0)} audits locaux dans Supabase ? Cette opération ajoute des données au cloud et ne les supprime pas.`))return;
+ setCloudStatus("Import des véhicules et de l'historique en cours…");
+ for(const v of data.vehicles){
+   const row=await insertVehicleCloud(v);
+   for(const a of v.audits) await insertAuditCloud(row.id,a);
+ }
+ await loadCloudData();
+ setCloudStatus("Import terminé : flotte et historique enregistrés dans Supabase.");
+ toast("Données importées dans le cloud ✓");
+}
+async function afterLogin(){
+ const {data:sessionData,error}=await supabaseClient.auth.getSession();if(error)throw error;
+ cloudSession=sessionData.session;
+ if(!cloudSession){setCloudStatus("Configuration enregistrée. Connecte-toi avec ton compte Supabase.");return}
+ setCloudStatus("Connecté : vérification des données en ligne…");
+ const {data:rows,error:readErr}=await supabaseClient.from("vehicles").select("id").limit(1);
+ if(readErr)throw readErr;
+ if(rows.length===0){
+   const hasLocal=data.vehicles.length>0;
+   if(hasLocal && confirm("La base en ligne est vide. Importer maintenant les véhicules et audits de ce navigateur ?")) await migrateLocalToCloud();
+   else {await loadCloudData();setCloudStatus("Connecté, mais aucun véhicule dans le cloud. Tu peux importer les données locales depuis ce navigateur.")}
+ } else {
+   const n=await loadCloudData();setCloudStatus(`Synchronisé ✓ ${n} véhicule(s) chargé(s) depuis Supabase.`);
+ }
+}
+async function withCloudBusy(action){
+ if(cloudBusy)return;cloudBusy=true;
+ try{await action()}catch(e){console.error(e);setCloudStatus("Erreur : "+(e.message||"opération impossible"),true);toast("Erreur cloud : "+(e.message||"vérifie la configuration"))}
+ finally{cloudBusy=false}
+}
+async function renameVehicle(id){
+ const v=data.vehicles.find(x=>x.id===id);if(!v)return;const current=v.plate||"";const plate=prompt("Saisis l'immatriculation du véhicule :",current);if(plate===null)return;const cleaned=plate.trim().toLocaleUpperCase("fr-FR");if(!cleaned){toast("L'immatriculation ne peut pas être vide.");return}const duplicate=data.vehicles.some(x=>x.id!==id&&x.plate.trim().toLocaleUpperCase("fr-FR")===cleaned);if(duplicate){toast("Cette immatriculation est déjà utilisée.");return}
+ if(cloudConfigured()){await withCloudBusy(async()=>{const {error}=await supabaseClient.from("vehicles").update({registration:cleaned}).eq("id",id);if(error)throw error;await loadCloudData();openHistory(id);setCloudStatus("Immatriculation mise à jour et synchronisée.")});}
+ else {v.plate=cleaned;save();openHistory(id);toast("Immatriculation mise à jour localement.")}
+}
+async function addVehicle(){
+ const plate=prompt("Nouvelle immatriculation :");if(plate===null)return;const cleaned=plate.trim().toLocaleUpperCase("fr-FR");if(!cleaned){toast("Saisis une immatriculation.");return}if(data.vehicles.some(v=>v.plate.trim().toLocaleUpperCase("fr-FR")===cleaned)){toast("Cette immatriculation existe déjà.");return}
+ const name="Véhicule "+String(data.vehicles.length+1).padStart(2,"0");
+ if(cloudConfigured()){await withCloudBusy(async()=>{const {data:row,error}=await supabaseClient.from("vehicles").insert({registration:cleaned,make:name,model:null}).select("*").single();if(error)throw error;await loadCloudData();openAudit(row.id);setCloudStatus("Véhicule ajouté et synchronisé.")});}
+ else {const v={id:uid(),plate:cleaned,name,audits:[]};data.vehicles.push(v);save();renderFleet();openAudit(v.id)}
+}
+$("auditForm").addEventListener("submit",async e=>{
+ e.preventDefault();const v=data.vehicles.find(x=>x.id===$("auditVehicleId").value);if(!v)return;
+ const tire=document.querySelector('input[name="tires"]:checked');if(!tire){toast("Indique l'état des pneus.");return}
+ const eq={};for(const [key,label] of equipment){eq[key]=$("equipmentFields").querySelector(`[name="equip_${key}"]`).value;if(!eq[key]){toast("Complète le contrôle : "+label+".");$("equipmentFields").querySelector(`[name="equip_${key}"]`).focus();return}}
+ const km=$("auditKm").value,next=$("nextServiceKm").value;
+ const a={id:uid(),date:$("auditDate").value,km:km===""?"":Number(km),nextServiceKm:next===""?"":Number(next),tires:tire.value,equipment:eq,notes:$("auditNotes").value.trim(),createdAt:Date.now()};
+ if(cloudConfigured()){
+   await withCloudBusy(async()=>{await insertAuditCloud(v.id,a);await loadCloudData();showPage("homePage");setCloudStatus("Audit enregistré dans Supabase et synchronisé ✓");toast("Audit enregistré dans le cloud ✓")});
+ } else {v.audits.push(a);save();showPage("homePage");toast("Audit enregistré localement. Configure Supabase pour synchroniser.")}
+});
+$("vehicleList").addEventListener("click",e=>{const b=e.target.closest("button[data-action]");if(!b)return;if(b.dataset.action==="audit")openAudit(b.dataset.id);if(b.dataset.action==="history")openHistory(b.dataset.id)});
+$("searchInput").addEventListener("input",renderFleet);
+$("filters").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(!b)return;activeFilter=b.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));renderFleet()});
+$("addVehicleBtn").addEventListener("click",()=>withCloudBusy(addVehicle));
+$("backHome").onclick=$("cancelAudit").onclick=()=>showPage("homePage");
+$("historyBack").onclick=()=>showPage("homePage");
+document.querySelectorAll(".navbtn").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.page==="historyPage"){const v=data.vehicles.find(x=>x.id===currentHistoryId)||data.vehicles[0];if(v)openHistory(v.id);else showPage("historyPage")}else showPage(b.dataset.page)}));
+$("editVehiclesBtn").onclick=()=>{showPage("homePage");$("searchInput").focus();toast("Choisis un véhicule puis « Historique » pour modifier son immatriculation.")};
+$("exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=`sauvegarde-audits-${today()}.json`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);toast("Sauvegarde exportée.")};
+$("importBtn").onclick=()=>$("importFile").click();
+$("importFile").addEventListener("change",async e=>{const file=e.target.files[0];if(!file)return;try{const imported=JSON.parse(await file.text());if(!imported||!Array.isArray(imported.vehicles)||!imported.vehicles.every(v=>v.id&&Array.isArray(v.audits)))throw new Error("Format incorrect");if(!confirm(`Importer ${imported.vehicles.length} véhicules et remplacer les données locales actuelles ? Cela ne modifie pas la base Supabase.`))return;data=imported;save();renderFleet();showPage("homePage");toast("Sauvegarde locale importée.")}catch(err){alert("Fichier invalide ou illisible. Choisis une sauvegarde JSON créée par cette application.")}finally{$("importFile").value=""}});
+$("resetBtn").onclick=()=>{if(confirm("Effacer définitivement les données locales de ce navigateur ? Les données enregistrées dans Supabase ne seront pas supprimées.")){data=seed();save();currentHistoryId=null;renderFleet();showPage("homePage");toast("Données locales réinitialisées.")}};
+$("saveSupabaseConfig").onclick=()=>{try{saveConfigToStorage();initSupabase();setCloudStatus("Configuration enregistrée sur cet appareil. Connecte-toi à ton compte pour synchroniser.");toast("Configuration Supabase enregistrée.")}catch(e){setCloudStatus(e.message,true)}};
+$("testSupabaseConfig").onclick=()=>withCloudBusy(async()=>{saveConfigToStorage();initSupabase();const {error}=await supabaseClient.auth.getSession();if(error)throw error;setCloudStatus("URL et clé acceptées. Connecte-toi ensuite pour vérifier l'accès à tes tables.");toast("Configuration chargée.")});
+$("signInBtn").onclick=()=>withCloudBusy(async()=>{if(!supabaseClient){saveConfigToStorage();initSupabase()}const email=$("authEmail").value.trim(),password=$("authPassword").value;if(!email||!password)throw new Error("Renseigne ton e-mail et ton mot de passe.");const {error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;await afterLogin()});
+$("signUpBtn").onclick=()=>withCloudBusy(async()=>{if(!supabaseClient){saveConfigToStorage();initSupabase()}const email=$("authEmail").value.trim(),password=$("authPassword").value;if(!email||password.length<8)throw new Error("Renseigne un e-mail valide et un mot de passe d'au moins 8 caractères.");const {data:res,error}=await supabaseClient.auth.signUp({email,password});if(error)throw error;if(!res.session){setCloudStatus("Compte créé. Vérifie tes e-mails pour confirmer l'inscription, puis connecte-toi.");toast("Vérifie ta boîte e-mail.")}else{await afterLogin()}});
+$("signOutBtn").onclick=()=>withCloudBusy(async()=>{if(!supabaseClient)throw new Error("Aucune configuration Supabase chargée.");const {error}=await supabaseClient.auth.signOut();if(error)throw error;cloudSession=null;supabaseClient=null;setCloudStatus("Déconnecté. Les données affichées restent en cache local sur cet appareil.");toast("Déconnexion effectuée.")});
+$("syncCloudBtn").onclick=()=>withCloudBusy(async()=>{if(!supabaseClient){saveConfigToStorage();initSupabase()}const {data:s,error}=await supabaseClient.auth.getSession();if(error)throw error;cloudSession=s.session;if(!cloudSession)throw new Error("Connecte-toi d'abord avec ton e-mail et ton mot de passe.");const n=await loadCloudData();setCloudStatus(`Synchronisé ✓ ${n} véhicule(s) et leur historique chargés depuis Supabase.`);toast("Synchronisation terminée.")});
+$("migrateCloudBtn").onclick=()=>withCloudBusy(migrateLocalToCloud);
+async function initSavedConfig(){
+ try{const raw=localStorage.getItem(CONFIG_KEY);if(!raw)return;const c=JSON.parse(raw);$("supabaseUrl").value=c.url||"";$("supabaseKey").value=c.key||"";initSupabase();const {data:s,error}=await supabaseClient.auth.getSession();if(error)throw error;cloudSession=s.session;if(cloudSession){await afterLogin()}else setCloudStatus("Configuration retrouvée. Connecte-toi pour synchroniser.");}
+ catch(e){setCloudStatus("Configuration à vérifier : "+(e.message||"erreur"),true)}
+}
+data=load();if(!Array.isArray(data.vehicles)||!data.vehicles.length)data=seed();data.vehicles.forEach((v,i)=>{if(!v.id)v.id=uid();if(!Array.isArray(v.audits))v.audits=[];if(!v.name)v.name="Véhicule "+String(i+1).padStart(2,"0");if(typeof v.plate!=="string")v.plate=""});
+save();$("auditDate").value=today();renderFleet();initSavedConfig();
+})();
+</script>
+</body>
+</html>
